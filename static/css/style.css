@@ -1,0 +1,43 @@
+
+
+
+
+*{
+    box-sizing: border-box;
+
+}
+
+nav{
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    /* border: 1px solid black; */
+
+    width: 50%;
+}
+
+
+nav ul li{
+    list-style: none;
+}
+
+
+nav ul li a{
+    text-decoration: none;
+}
+
+
+.my_active {
+    text-decoration: underline !important;
+    color: violet !important;
+}
+
+
+header{
+    
+    /* background-image: url("{{url_for('static', filename='images/img.jpg')}}"); */
+}
