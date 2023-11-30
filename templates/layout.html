@@ -41,6 +41,14 @@
                         </li>
                         {%endif%}
 
+                        {% if session['email']=='ilyas@gmail.com'%}
+
+                        <li class="nav-item">
+                          <a class="nav-link {% if name =='connexion' %}   active   {%endif%} " href="/table" >Table de bord</a>
+                        </li>
+                        {%endif%}
+
+
                     </ul>
                     <!-- <form class="d-flex" role="search">
                       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

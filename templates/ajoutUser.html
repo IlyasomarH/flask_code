@@ -1,12 +1,9 @@
-
-
 {% extends 'layout.html'%}
 
 
-
-{%block main   %} 
+{%block main %}
 {% for message in get_flashed_messages() %}
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
+<div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
   {{ message }}
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
@@ -14,8 +11,8 @@
 
 <section class="row border  ">
     <div class="col">
-        <form class=" p-5 mt-5 mx-5 rounded" action="/inscription" method="POST">
-            <h2>S'inscrire</h2>
+        <form class=" p-5 mt-5 mx-5 rounded" action="/AjoutUser" method="POST">
+            <h2>Ajouter un Nouveau User</h2>
             <div class="mb-3">
                 <label for="exampleInputNom" class="form-label">Nom </label>
                 <input type="name" class="form-control" id="exampleInputNom" aria-describedby="name" name="Nom">
@@ -38,7 +35,7 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck1">
               <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
             <!-- <a href="/inscription">s'?</a> -->
           </form>
     </div>
@@ -47,6 +44,10 @@
     </div>
     
 </section>
+
+
+
+
 
 
 {%endblock%}

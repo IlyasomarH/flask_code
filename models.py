@@ -21,7 +21,7 @@ db=SQLAlchemy()
 migrate=Migrate(app, db)
 
 # declaration du base de donnée au flask
-db.db.init_app(app)
+db.init_app(app)
 
 
 
@@ -36,10 +36,12 @@ class User(db.Model):
     email = db.Column(db.String(200), nullable=False)
     password=db.Column(db.String(200), nullable=False)
 
+
     def __init__(self, Nom, email,password ):
         self.Nom = Nom
         self.email=email
         self.password = password
+        # self.admin_user=admin_user
 
 
 # appelez pour créer Schéma de table dans la base de données.

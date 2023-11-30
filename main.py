@@ -57,16 +57,115 @@ def formation():
 
 
 
+
+# ajout 
+
+
+@app.route('/AjoutUser', methods=["GET", "POST"])
+def AjoutUser():
+    if request.method=='POST':
+        if request.form['pass']== request.form['repass']:
+            try:
+                
+                Nouveau_user=User(request.form['Nom'],request.form['email'] ,request.form['pass'])
+                db.session.add(Nouveau_user)
+                db.session.commit()
+                return redirect(url_for('table'))
+            except:
+                flash(" persone n'avait pas ajouter ")
+        else:
+            flash('le deux mot de passes doivent etre egaux') 
+            return  render_template('ajoutUser.html')    
+    else:
+          flash('formulaire n est pas soummis ')      
+    return render_template('ajoutUser.html')
+
+
+
+
+# supprimition
+
+
+@app.route('/suppuser/<int:id>/supprimer')
+def suppuser(id):
+    try:
+        
+        user = db.get_or_404(User, id)
+        session.pop('user.email',None)
+        session.pop('user.username',None)
+        db.session.delete(user)
+        db.session.commit()
+        flash('un user a ete supprimer')
+        return redirect(url_for('table'))
+    except:
+        flash("un user n' a pas  ete supprimer")
+
+
+
+
+
+@app.route('/modifier/<int:id>/user', methods=['POST', 'GET'])
+def modifier(id):
+    user1= db.get_or_404(User, id)
+    if request.method=='POST':
+        try:
+            
+            user1.Nom=request.form['Nom']
+            user1.email=request.form['email']
+            user1.password=request.form['password']
+            db.session.commit()
+            # user=modifierUser(id, request.form['Nom'], request.form['email'], request.form['password'])
+            
+            return redirect(url_for('table'))
+        except:
+            flash("user n'a pas ete modfier")
+            return redirect(url_for('modifier'))
+    else:
+        flash('un probleme au niveau de formulaire')
+        # return render_template('tableauBord.html')
+        
+        # return render_template('modifier.html')
+    return render_template('modifier.html', user=user1)
+
+@app.route('/modifierUnUser/<int:id>/user')
+def modifierUser(id, Nom, email, password):
+    user = db.get_or_404(User, id)
+
+    
+    user.Nom=Nom
+    user.email=email
+    user.password=password
+    db.session.commit()
+    return user
+
+
 @app.route('/seDeconnecter')
 def seDeconnecter():
     session.pop('email', None)
     return  redirect(url_for('index'))
 
+
+
+
+
+
+
+
+
 @app.route('/table')
 def table():
-    return render_template('tableauBord.html')
-
-
+    if  session :
+        
+        if session['email']=='ilyas@gmail.com':
+            
+            users= User.query.all()
+            return render_template('tableauBord.html', utilisateurs=users)
+        else:
+            return redirect(url_for('connexion'))
+    else:
+        flash("se connecter au tant que Administrasteur")
+        
+        return redirect(url_for('connexion'))
 @app.route("/users")    
 def user_list():
     # users = db.session.execute(db.select(User).order_by(User.Nom)).scalars()
@@ -87,7 +186,7 @@ def connexion():
                 flash("l'email ou le passowrd  n'est pas correct")
                 return render_template('connexion.html')
         else:
-            flash("l'email ou le passowrd  n'est pas correct ")
+            flash("veuillez remplir tout les champs")
             return render_template('connexion.html')  
             
     return render_template('connexion.html', name="connexion")

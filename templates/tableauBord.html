@@ -1,0 +1,46 @@
+{% extends 'layout.html'%}
+
+
+{%block main %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+    <h1 class="text-primary text-center mt-5 pt-5">table de bord</h1>
+    <p>
+        <a href="/AjoutUser" class="btn btn-primary"> Ajouter</a>
+    </p>
+
+
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>passWord</th>
+            <th>Type</th>
+            <th>Action</th>
+        </tr>
+        {% for personne in utilisateurs%}
+        <tr>
+            <td>{{personne.id}}</td>
+            <td>{{personne.Nom}}</td>
+            <td>{{personne.email}}</td>
+            <td>{{personne.password}}</td>
+            {%if personne.email == 'ilyas@gmail.com'%}
+            <td> Admin</td>
+            {%else%}
+            <td> User</td>
+            {%endif%}
+
+            <td><a href="suppuser/{{personne.id}}/supprimer" class="btn btn-danger"> Supprimer</a> <a href="/modifier/{{personne.id}}/user" class="btn btn-success"> Modifier</a></td>
+        {%endfor%}  
+        </tr>
+    </table>
+
+
+{%endblock%}
