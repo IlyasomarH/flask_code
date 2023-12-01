@@ -112,14 +112,14 @@ def modifier(id):
             
             user1.Nom=request.form['Nom']
             user1.email=request.form['email']
-            user1.password=request.form['password']
+            user1.password=request.form['pass']
             db.session.commit()
             # user=modifierUser(id, request.form['Nom'], request.form['email'], request.form['password'])
             
             return redirect(url_for('table'))
         except:
             flash("user n'a pas ete modfier")
-            return redirect(url_for('modifier'))
+            return render_template("modifier.html", id)
     else:
         flash('un probleme au niveau de formulaire')
         # return render_template('tableauBord.html')
